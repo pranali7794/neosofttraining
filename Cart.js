@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MoodIcon from "@material-ui/icons/Mood";
-import { Link } from "react-router-dom"
+import { Link , withRouter} from "react-router-dom"
 
 function Cart(props) {
  
@@ -57,7 +57,7 @@ function Cart(props) {
                         price: totalPrice
 
                     })
-       // window.location.reload();
+        //window.location.reload();
         
       }).catch((error) => console.log(error));
   }
@@ -167,6 +167,7 @@ function Cart(props) {
   );
 }
 
+Cart = withRouter(Cart)
 export default connect(function (state, props) {
   state = {...state}
 

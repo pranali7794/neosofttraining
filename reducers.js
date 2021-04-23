@@ -1,5 +1,7 @@
 const demo = function (state={
-	user:null	
+	token: localStorage.getItem('token'),
+	user:null,
+	isloggedin	: localStorage.getItem('token') ? true : false,
 
 }, action) {
 	switch(action.type){
