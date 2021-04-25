@@ -1,7 +1,8 @@
-import { Link } from "react-router-dom"
+import { Link , withRouter} from "react-router-dom"
 import { useState } from "react"
+import {connect} from "react-redux"
 
-function Address(){
+function Address(props){
 	var  [formerrors, setFormerrors] = useState({})
 	const [nameErr, setNameErr] = useState(false);
 	const [addressErr, setAddressErr] = useState(false);
@@ -60,6 +61,12 @@ function Address(){
 		else{
 			setFormerrors({})
 			alert("Form submitted successfully")
+
+			props.dispatch({
+	      	type:"CHECKOUT_STAGE",
+	      	counter : 3
+		    })
+		    props.history.push("/checkout/payment")
 
 		}
 	}
@@ -135,4 +142,12 @@ function Address(){
 		</div>
 		)
 }
- export default Address;
+
+Address = withRouter(Address)
+ export default connect(function(state,props){
+ 	console.log(".... state initially in address", state)
+ 	return{
+        counter : state?.counter
+
+ 	}
+ })(Address);

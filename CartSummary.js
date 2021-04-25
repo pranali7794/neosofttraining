@@ -32,6 +32,15 @@ function CartSummary(props){
       .catch((error) => console.log(error));
   }, [props.token]);
 
+   function continue_checkout(){
+
+    props.dispatch({
+      type:"CHECKOUT_STAGE",
+      counter : 2
+    })
+    props.history.push("/checkout/address")
+  }
+
   
   return (
     <div>
@@ -61,7 +70,7 @@ function CartSummary(props){
                             <img
                               className="media-object"
                               src={cart?.image}
-                              style={{ width: "72px", height: "72px" }}
+                              style={{ width: "45px", height: "45px" }}
                             />{" "}
                           </td>
                           
@@ -98,6 +107,7 @@ function CartSummary(props){
               </tr>
               </tbody>
               </table>
+              <button class="btn btn-outline-primary" onClick={continue_checkout}>Next</button>
             </div>
             
           </>

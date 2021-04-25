@@ -71,42 +71,50 @@ function Login(props){
         pwdFlag=0;
        }
 
-console.log("setEmailError= ", emailError)
-console.log("pwdError = ", pwdError)
+    console.log("setEmailError= ", emailError)
+    console.log("pwdError = ", pwdError)
 
        if(emailFlag==0 && pwdFlag==0){
         console.log("user in login api",user)
+
+        props.dispatch({
+            type:"LOGIN",
+            payload:user
+        })
+
+        
+
        // props.setLogin(true)
         //setError("")
         // setEmailError("")
         // setPwdError("")
 
-        let apiurl = "https://apibyashu.herokuapp.com/api/login"
-            axios({
-                url : apiurl,
-                method : "post",
-                data : user
-            }).then((response)=>{
-                console.log("response from login api", response.data)
-                if(response.data.token){
-                    localStorage.token= response.data.token
-                    localStorage.email= response.data.email
-                    props.dispatch({
-                        type:"LOGIN",
-                        payload:response.data
-                    })
+        // let apiurl = "https://apibyashu.herokuapp.com/api/login"
+        //     axios({
+        //         url : apiurl,
+        //         method : "post",
+        //         data : user
+        //     }).then((response)=>{
+        //         console.log("response from login api", response.data)
+        //         if(response.data.token){
+        //             localStorage.token= response.data.token
+        //             localStorage.email= response.data.email
+        //             props.dispatch({
+        //                 type:"LOGIN",
+        //                 payload:response.data
+        //             })
 
-                    props.informlogin(localStorage)
-                    props.history.push("/")
+        //             props.informlogin(localStorage)
+        //             props.history.push("/")
 
-                }else{
-                    alert("Invalid login credentials")
-                }
+        //         }else{
+        //             alert("Invalid login credentials")
+        //         }
 
-            }, (error)=>{
-                console.log("Error from login api", error)
-                alert("Invalid login credentials")
-            })
+        //     }, (error)=>{
+        //         console.log("Error from login api", error)
+        //         alert("Invalid login credentials")
+        //     })
        }
     }
 

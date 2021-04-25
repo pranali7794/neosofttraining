@@ -14,8 +14,9 @@ import Checkout from "./Checkout"
 import ForgotPassword from './forgotPassword.js'
 
 function App(props) {
+  console.log("props in app", props.user)
   useEffect(() => {
-  if(props.token && !props.user){
+  if(props.token && props.user===null){
   var token = localStorage.token
   console.log("Means user is already logged in..." , props)
   axios({
@@ -28,7 +29,7 @@ function App(props) {
     console.log("response from user details api ", response);
     props.dispatch({
       type:"INITIALISE_USER",
-      payload:response.data.data
+      payload: response.data.data
     })
   },
   (error)=>{
