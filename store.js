@@ -1,10 +1,16 @@
 import  {createStore , applyMiddleware} from "redux"
 import demo from "./reducers"
 import logger from "./middlewares"
+import createSaga from "redux-saga"
+import {LoginSaga, RootSaga} from "./sagas.js"
 
-var middlewares = applyMiddleware(logger)
+var sagaMiddleware = createSaga()
+
+var middlewares = applyMiddleware(logger, sagaMiddleware)
 var store = createStore(demo, middlewares)
-
+{
+sagaMiddleware.run(RootSaga)
+}
 
 //console.log(".........",store.getState())
 

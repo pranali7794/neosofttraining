@@ -1,10 +1,10 @@
-// export function FirstMiddleWare(store){
-// 	return function(next){
-// 		return function(action){
+export function FirstMiddleWare(store){
+	return function(next){
+		return function(action){
 			
-// 		}
-// 	}
-// }
+		}
+	}
+}
 
 //ES6
 let logger = store=>next=>action=>{

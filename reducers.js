@@ -1,7 +1,11 @@
 const demo = function (state={
-	token: localStorage.getItem('token'),
-	user:null,
-	isloggedin	: localStorage.getItem('token') ? true : false,
+	
+	user: null,
+	
+	isloggedin : localStorage.getItem('token')? true : false,
+
+	counter : 1,
+	token : localStorage.getItem('token')? localStorage.getItem('token') : null
 
 }, action) {
 	switch(action.type){
@@ -9,8 +13,28 @@ const demo = function (state={
 			console.log("Here we have to write logic for LOGIN")
 			state = {...state}
 
+			
+			state["isloginfetch"] = true
+			
+			return state
+		}
+		case "LOGIN_SUCCESS":{
+			console.log("Here we have to write logic for LOGIN_SUCCESS")
+			state = {...state}
+
 			state["isloggedin"] = true
 			state["user"] = action.payload
+			state["isloginfetch"] = false
+			state["isloginerror"] = false
+			return state
+		}
+		case "LOGIN_FAILURE":{
+			console.log("Here we have to write logic for LOGIN_FAILURE")
+			state = {...state}
+
+			
+			state["isloginfetch"] = false
+			state["isloginerror"] = true
 			return state
 		}
 		case "INITIALISE_USER":{
@@ -67,6 +91,17 @@ const demo = function (state={
      		 state["total"] = state["total"] - action.price;
 			
 			console.log("after removing cake from cart state = ", state);
+			
+			return state;
+		}
+
+		case "CHECKOUT_STAGE":
+		{
+			console.log("Here we have to CHECKOUT_STAGE ", state)
+			 state = {...state}
+			 state["counter"] = action.counter
+
+			 console.log("after incrementing counter = ", state);
 			
 			return state;
 		}
