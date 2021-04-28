@@ -12,6 +12,7 @@ import {connect} from "react-redux"
 import Cart from "./Cart"
 import Checkout from "./Checkout"
 import ForgotPassword from './forgotPassword.js'
+import OrderDetails from "./OrderDetails"
 
 function App(props) {
   console.log("props in app", props.user)
@@ -48,9 +49,14 @@ function App(props) {
       })
         .then((response) => {
           console.log("cart data", response.data);
+          var total = 0;
+        response.data.data.map(({ price }) => {
+          total = total + price;
+        });
           props.dispatch({
             type: "CART_DATA",
             payload: response.data.data,
+            total: total
           });
         })
         .catch((error) => console.log(error));
@@ -87,6 +93,7 @@ function logindone(data) {
     <div>
         <Route path="/cart" exact component={Cart} />
         <Route path="/checkout"  component={Checkout} />
+        <Route path="/OrderDetails" exact component={OrderDetails} />
     </div> : ''
       }
       <Route path="/*">
