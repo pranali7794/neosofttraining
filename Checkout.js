@@ -13,11 +13,17 @@ function Checkout(props){
 
 	return (
 		<div className="row">
-		<div className="col-4">
-			<Link to={url}><li>Cart Summary</li></Link>
-			{props?.counter>1 ? <Link to={url + "/address"}><li>Add Address</li></Link>:<li >Address</li>}
-			{props?.counter>2 ? <Link to={url + "/payment"}><li>Payment</li></Link>:<li >Payment</li>}
-			{props?.counter>3 ? <Link to={url + "/order"}><li>Order</li></Link>:<li >Order</li>}
+		<div className="col-4" style={{padding:"30px"}}>
+			<Link to={url}><li className="form-control" style={{ background:"orange"}}>Cart Summary</li></Link><br/>
+
+			{props?.counter>1 ? <Link to={url + "/address"}>
+			<li className="form-control" style={{ background:"orange"}}>Add Address</li></Link>:<li className="form-control" style={{ background:"orange"}}>Address</li>} <br/>
+
+			{props?.counter>2 ? <Link to={url + "/payment"}>
+			<li className="form-control" style={{ background:"orange"}}>Payment</li></Link>:<li className="form-control" style={{ background:"orange"}}>Payment</li>} <br/>
+
+			{props?.counter>3 ? <Link to={url + "/order"}>
+			<li className="form-control" style={{ background:"orange"}}>Order</li></Link>:<li className="form-control" style={{ background:"orange"}}>Order</li>}
 
 		</div>
 		<div className="col-8">

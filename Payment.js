@@ -7,13 +7,13 @@ function Payment(props){
 
     props.dispatch({
       type:"CHECKOUT_STAGE",
-      counter : 4
+      counter : props.counter
     })
     props.history.push("/checkout/order")
   }
 
 	return(
-		<div><h2>Payment Mode</h2>
+		<div><h2 style={{ padding: "30px" }}>Payment Mode</h2>
 		<br/><br/>
 		<input type="radio" id="cash" name="cash" value="Cash On Delivery" checked="checked"/>
 		&emsp; <label for="cash">Cash On Delivery</label>

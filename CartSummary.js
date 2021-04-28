@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import axios from "axios";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MoodIcon from "@material-ui/icons/Mood";
-import { Link } from "react-router-dom"
+import { Link , withRouter} from "react-router-dom"
 
 function CartSummary(props){
   const [cartSumry, setCartSumry] = useState([]);
@@ -33,10 +33,10 @@ function CartSummary(props){
   }, [props.token]);
 
    function continue_checkout(){
-
+    
     props.dispatch({
       type:"CHECKOUT_STAGE",
-      counter : 2
+      counter : props.counter
     })
     props.history.push("/checkout/address")
   }
@@ -135,11 +135,14 @@ function CartSummary(props){
   );
 }
 
+CartSummary = withRouter(CartSummary)
 export default connect(function (state, props) {
   return {
     token: state?.user?.token,
     cart: state?.cart,
-    remove_msg : state?.remove_msg
+    remove_msg : state?.remove_msg,
+    counter : state?.counter
+
   };
 })(CartSummary);
  

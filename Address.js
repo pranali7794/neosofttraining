@@ -55,16 +55,28 @@ function Address(props){
 		var form = document.getElementById("addressForm")
 		console.log("form elements in this", form.elements, form.controls)
 		var errors = validate(form.elements) //validate call
+
+		var name = form.elements[0].value;
+		var address = form.elements[1].value;
+		var phone = form.elements[2].value;
+		var city = form.elements[3].value;
+		var pincode = form.elements[4].value;
+
 		if(errors){
 			setFormerrors(errors)
 		}
 		else{
 			setFormerrors({})
+			props.dispatch({
+				type:"ADD_ADDRESS",
+				payload : {name : name, address:address, phone:phone, city:city, pincode:pincode}
+			})
+			
 			alert("Form submitted successfully")
 
 			props.dispatch({
 	      	type:"CHECKOUT_STAGE",
-	      	counter : 3
+	      	counter : props.counter
 		    })
 		    props.history.push("/checkout/payment")
 
@@ -72,7 +84,7 @@ function Address(props){
 	}
 
 	return(
-		<div><h1>Shipping Details</h1> <br/><br/>
+		<div><h2 style={{ padding: "30px" }}>Shipping Details</h2> 
 		
 		<form id="addressForm" style={{align:"center"}}>
 			<div className="form-group">
@@ -128,15 +140,17 @@ function Address(props){
 
 			</div>
 
-			<div className="form-group">
-				
+			<div className="form-group" >
+				<div className="row">
+				<center>
 	              <button onClick={placeOrder}
-	                style={{ display: "flex",  margin: "100px" }}
-	                className="btn btn-primary"
+	                style={{ display: "flex",  margin: "50px", float:"left", marginLeft:"20px" }}
+	                className="btn btn-outline-primary"
 	              >
-	               Place Order
+	               Add Shipping Details
 	              </button>
-	              
+	              </center>
+	              </div>
 			</div>
 		</form>
 		</div>

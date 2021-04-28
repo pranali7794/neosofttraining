@@ -37,6 +37,14 @@ function Navbar(props){
         setSearchStr(event.target.value)
         
     }
+
+    let orderDetails = function()
+    {
+        props.dispatch({
+            type : "ORDER_DETAILS"
+        })
+        props.history.push("/OrderDetails")
+    }
     
     return (
         <div>
@@ -67,9 +75,10 @@ function Navbar(props){
                 {props.loginstatus ? 
                     <div>
                 <Link to="/cart">
-                <button className="btn btn-warning my-2 my-sm-0" type="submit"><FontAwesomeIcon icon={faShoppingCart} /></button>
+                <button className="btn btn-warning my-2 my-sm-0" type="submit"><FontAwesomeIcon icon={faShoppingCart} />&nbsp;{ props.cartData?.length }</button>
                 </Link>
-                   &emsp; <button onClick={logout} className="btn btn-danger">Logout</button>
+                 &emsp; <button onClick={orderDetails} className="btn btn-info">My Orders </button>
+                 &emsp; <button onClick={logout} className="btn btn-danger">Logout</button>
                     </div>:
                     <div>
                 <Link to="/login"> <button className="btn btn-primary">Login</button></Link>
@@ -87,6 +96,7 @@ export default connect(function(state,props){
     console.log(".... state initially in navbar", state)
     return {
         user : state?.user?.name,
-        loginstatus : state?.isloggedin
+        loginstatus : state?.isloggedin,
+        cartData: state?.cart?.data
     }
 })(Navbar)

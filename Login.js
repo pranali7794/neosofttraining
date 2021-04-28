@@ -121,7 +121,7 @@ function Login(props){
     return(
         <div>
             <center><h3>Login</h3></center>
-            <div style={{"width":"50%", "margin":"auto"}}>
+            <div style={{width:"50%", margin:"auto"}}>
                     <div className="form-group">
                         <label>Email</label>
                         <input type="email" className="form-control" onChange={getEmail}></input>
