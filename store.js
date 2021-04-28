@@ -3,6 +3,7 @@ import demo from "./reducers"
 import logger from "./middlewares"
 import createSaga from "redux-saga"
 import {LoginSaga, RootSaga} from "./sagas.js"
+import thunk from "redux-thunk"
 
 var sagaMiddleware = createSaga()
 

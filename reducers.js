@@ -95,15 +95,79 @@ const demo = function (state={
 			return state;
 		}
 
+		case "ADD_ADDRESS": 
+		{
+			console.log("Here we have to ADD_ADDRESS ", state)
+			 state = {...state}
+			 state["username"] = action.payload.name;
+			 state["address"] = action.payload.address;
+			 state["phone"] = action.payload.phone;
+			 state["city"] = action.payload.city;
+			 state["pincode"] = action.payload.pincode;
+			
+			console.log("after adding address state = ", state);
+			
+			return state;
+
+		}
+
 		case "CHECKOUT_STAGE":
 		{
 			console.log("Here we have to CHECKOUT_STAGE ", state)
 			 state = {...state}
-			 state["counter"] = action.counter
+			 state["counter"] = action.counter+1
 
 			 console.log("after incrementing counter = ", state);
 			
 			return state;
+		}
+
+		case "PLACE_ORDER":
+		{
+			console.log("Here we have to write logic for PLACE_ORDER")
+			state = {...state}
+
+			
+			state["isorderfetch"] = true
+			
+			return state
+		}
+
+		case "PLACE_ORDER_SUCCESS":
+		{			
+			state = {...state}
+			state["success_msg"] = action.success_msg
+			state["isorderfetch"] = false
+			console.log("After PLACE_ORDER state =", state)
+			return state
+		} 
+
+		case "ORDER_DETAILS":
+		{
+			state = {...state}
+			state["isorderdetailsfetch"] = true
+			console.log("Before ORDER_DETAILS state =", state)
+
+			return state
+		}
+		case "ORDER_DETAILS_SUCCESS":
+		{
+			state = {...state}
+			state["isorderdetailsfetch"] = false
+			state["error_orderDetails"] = null
+			state["cake_orders"] = action.payload
+			console.log("After ORDER_DETAILS state =", state)
+
+			return state
+		}
+		case "ORDER_DETAILS_FAILURE":
+		{
+			state = {...state}
+			state["isorderdetailsfetch"] = false
+			state["error_orderDetails"] = action.orderDetailsError
+			console.log("After ORDER_DETAILS state =", state)
+
+			return state
 		}
 
 		default : return state

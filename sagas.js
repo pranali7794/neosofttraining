@@ -9,6 +9,27 @@ function login(action){
 	})
 }
 
+function place_order(action){
+	return axios({
+		method:"post",
+		url : "https://apibyashu.herokuapp.com/api/addcakeorder",
+		data: action.payload,
+		headers : {
+            authtoken: localStorage.token
+        }
+	})
+}
+
+function orderDetails(action){
+	return axios({
+		method:"post",
+		url : "https://apibyashu.herokuapp.com/api/cakeorders",
+		headers : {
+            authtoken: localStorage.token
+        }
+	})
+}
+
 function* LoginGenerator(action){
 	var result = yield call(login,action)
 	if(result.data.token){
@@ -25,12 +46,35 @@ function* LoginGenerator(action){
 	}
 }
 
+function* OrderGenerator(action){
+	var response = yield call(place_order,action)
+	yield put({type:'PLACE_ORDER_SUCCESS', success_msg: response.data.messageg})
+	
+}
+
+function* OrderDetailsGenerator(action){
+	var res = yield call(orderDetails,action)
+	if(res){
+		yield put({type:"ORDER_DETAILS_SUCCESS", payload:res.data.cakeorders}) //call to reducer
+	}
+	else
+	{
+		yield put({type:"ORDER_DETAILS_FAILURE", orderDetailsError: "No Orders currently"})
+	}
+}
+
 export function* LoginSaga(){
 	 yield takeEvery("LOGIN", LoginGenerator)
+} 
 
-	
+export function* OrderSaga(){
+	 yield takeEvery("PLACE_ORDER", OrderGenerator)	
+} 
+
+export function* OrderDetailsSaga(){
+	 yield takeEvery("ORDER_DETAILS", OrderDetailsGenerator)	
 } 
 
 export function* RootSaga(){
-	yield all([LoginSaga()])
+	yield all([LoginSaga(), OrderSaga(), OrderDetailsSaga()])
 }
