@@ -7,7 +7,7 @@ import thunk from "redux-thunk"
 
 var sagaMiddleware = createSaga()
 
-var middlewares = applyMiddleware(logger, sagaMiddleware)
+var middlewares = applyMiddleware( sagaMiddleware , thunk)
 var store = createStore(demo, middlewares)
 {
 sagaMiddleware.run(RootSaga)

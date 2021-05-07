@@ -169,6 +169,18 @@ const demo = function (state={
 
 			return state
 		}
+		case "HELLO":
+		{
+			console.log("thunk case in reducer = ", state)
+			return state
+		}
+		case "ALL_CAKES":
+		{
+			state = {...state}
+			state["allCakes"] = action.payload
+			console.log("all cakes in reducer", state)
+			return state
+		}
 
 		default : return state
 	}

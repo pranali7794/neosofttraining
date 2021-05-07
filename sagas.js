@@ -1,10 +1,14 @@
 import  axios  from "axios"
 import {call, put, takeEvery ,all} from "redux-saga/effects"
 
+var base_url = process.env.REACT_APP_BASE_URL;
+
 function login(action){
+	//alert(base_url+"/api/login");
+
 	return axios({
 		method:"post",
-		url : "https://apibyashu.herokuapp.com/api/login",
+		url : base_url+"/api/login",
 		data: action.payload
 	})
 }
@@ -12,7 +16,7 @@ function login(action){
 function place_order(action){
 	return axios({
 		method:"post",
-		url : "https://apibyashu.herokuapp.com/api/addcakeorder",
+		url : base_url+"/api/addcakeorder",
 		data: action.payload,
 		headers : {
             authtoken: localStorage.token
@@ -23,7 +27,7 @@ function place_order(action){
 function orderDetails(action){
 	return axios({
 		method:"post",
-		url : "https://apibyashu.herokuapp.com/api/cakeorders",
+		url : base_url+"/api/cakeorders",
 		headers : {
             authtoken: localStorage.token
         }
