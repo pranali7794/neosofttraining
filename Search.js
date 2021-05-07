@@ -9,9 +9,10 @@ function Search(props){
 
 	let [cakesearch, setCakeSearch] = useState([])	
 
+	var base_url = process.env.REACT_APP_BASE_URL;
 	
 	useEffect(()=>{	
-		let searchcakeapiurl = "https://apibyashu.herokuapp.com/api/searchcakes?q="+parsed.searchtext;
+		let searchcakeapiurl = base_url+"/api/searchcakes?q="+parsed.searchtext;
 		axios({
 			url : searchcakeapiurl,
 			method : "get" 

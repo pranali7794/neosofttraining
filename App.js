@@ -13,6 +13,13 @@ import Cart from "./Cart"
 import Checkout from "./Checkout"
 import ForgotPassword from './forgotPassword.js'
 import OrderDetails from "./OrderDetails"
+import ThunkCompo from "./ThunkCompo.js"
+import React, {Suspense} from "react"
+import ErrorBoundary from "./ErrorBoundary"
+
+var SuspendedAdmin = React.lazy(()=>import("./Admin"))
+var base_url = process.env.REACT_APP_BASE_URL;
+//alert(base_url);
 
 function App(props) {
   console.log("props in app", props.user)
@@ -20,9 +27,10 @@ function App(props) {
   if(props.token && props.user===null){
   var token = localStorage.token
   console.log("Means user is already logged in..." , props)
+  
   axios({
     method : "get",
-    url : 'https://apibyashu.herokuapp.com/api/getuserdetails',
+    url : base_url+'/api/getuserdetails',
     headers:{
       authtoken : token
     }
@@ -38,9 +46,9 @@ function App(props) {
 
   })
   
-   let detailsapiurl = "https://apibyashu.herokuapp.com/api/cakecart";
+   let detailsapiurl = "/api/cakecart";
       axios({
-        url: detailsapiurl,
+        url: base_url+detailsapiurl,
         method: "post",
         data: {},
         headers: {
@@ -60,6 +68,20 @@ function App(props) {
           });
         })
         .catch((error) => console.log(error));
+
+     
+      axios({
+        url: base_url+"/api/allCakes",
+        method: "get"        
+      })
+        .then((response) => {
+          console.log("all cakes data", response.data);
+          props.dispatch({
+            type: "ALL_CAKES",
+            payload: response.data.data          
+          });
+        })
+        .catch((error) => console.log(error));
     }
   }, [props.user, props.token]);
 
@@ -76,16 +98,26 @@ function logindone(data) {
 //Router will look for /path into address bar and load corredponding component
   return (
     <div>
+      <ErrorBoundary>
     <Router>
     <Navbar loginstatus={login}/>
 
     <div>
     <Switch>
+    <Route path="/mythunk" exact component={ThunkCompo} />
     <Route path="/" exact component={Home} />
       
       <Route path="/login" exact  ><Login informlogin={logindone} /></Route>
       <Route path="/signup" exact component={Signup} />
       <Route path="/search" exact component={Search} />
+
+      <Route path="/admin" exact>
+        <Suspense fallback={<div>Loading....</div>}>
+
+          <SuspendedAdmin/>
+          </Suspense>
+      </Route>
+      
       <Route path="/cake/:cakeid" exact component={CakeDetails} />
       <Route path="/forgot" exact component={ForgotPassword} />
       //route guard for cart and checkout
@@ -94,6 +126,7 @@ function logindone(data) {
         <Route path="/cart" exact component={Cart} />
         <Route path="/checkout"  component={Checkout} />
         <Route path="/OrderDetails" exact component={OrderDetails} />
+       
     </div> : ''
       }
       <Route path="/*">
@@ -102,7 +135,7 @@ function logindone(data) {
      </Switch>
      </div>
       </Router>
-    
+      </ErrorBoundary>
 
     </div>
   );

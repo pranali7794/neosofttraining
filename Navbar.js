@@ -4,6 +4,7 @@ import React , {useEffect, useState} from "react"
 import { connect } from "react-redux"
 import { faSearch, faShoppingCart } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import axios from "axios"
 
 function Navbar(props){
     var counter=0;

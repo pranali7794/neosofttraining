@@ -82,14 +82,14 @@ function Login(props){
             payload:user
         })
 
-        
+        props.history.push("/")
 
        // props.setLogin(true)
         //setError("")
         // setEmailError("")
         // setPwdError("")
 
-        // let apiurl = "https://apibyashu.herokuapp.com/api/login"
+        // let apiurl = "https://apifromashu/api/login"
         //     axios({
         //         url : apiurl,
         //         method : "post",

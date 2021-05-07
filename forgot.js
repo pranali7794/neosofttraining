@@ -1,23 +1,17 @@
 import axios from "axios"
-import { useState } from "react"
 
-function ForgotPassword(props) {
+function ForgotPassword() {
 	
-	var user ={}
-	var [user, setUser]=useState({})
+	user ={}
 	var [emailError,setEmailError]=useState('')
 	const emailRegx = new RegExp("^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$");
 	var emailFlag=0;
 
-	let getEmail= (event)=>{
-		setUser({
-            ...user,
-            email:event.target.value
-        })
-        user.email=event.target.value;
+	getEmail= (event)=>{
+		user.email=event.target.value
 	}
 	
-	let forgot_pass =()=>{
+	forgot_pass =()=>{
 		 if(user.email=="undefined" || user.email==undefined)
        {
         setEmailError("Please enter email")
@@ -35,12 +29,8 @@ function ForgotPassword(props) {
         emailFlag=0;
 
        }
-		console.log("emailError = ", emailError)
-		console.log("user.email = ", user.email)
-		console.log("email flag ", emailFlag)
-		var base_url = process.env.REACT_APP_BASE_URL;
-
-		if(emailFlag==0 && user.email)
+	   var base_url = process.env.REACT_APP_BASE_URL;
+		if(emailFlag==0)
 		{
 			let apiurl = base_url+"/api/recoverpassword"
 			axios({
@@ -50,12 +40,8 @@ function ForgotPassword(props) {
 
 			}).then((response)=>{
 				console.log("response from forgot password api", response)
-				alert(response.data.message)
-				props.history.push("/login")
-
 			}, (error)=>{
 				console.log("Error from forgot password api", error)
-				alert("Password not recovered .. Please try again")
 			})
 		}
 		
@@ -64,8 +50,6 @@ function ForgotPassword(props) {
 	
 		return(
 			<div style={{width:"50%", margin:"auto"}}>
-			<h2> Recover Password </h2>
-			<br/>
 			<div className="form-group">
 				<label>Email:</label>
 				<input type="email" className="form-control" onChange={getEmail} />

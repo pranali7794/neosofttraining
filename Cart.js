@@ -4,15 +4,17 @@ import axios from "axios";
 import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import MoodIcon from "@material-ui/icons/Mood";
 import { Link , withRouter} from "react-router-dom"
+import {Component} from "react"
 
 function Cart(props) {
  
   const [cartData, setCartData] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   var email = localStorage.email
+  var base_url = process.env.REACT_APP_BASE_URL;
 
   useEffect(() => {
-    let detailsapiurl = "https://apibyashu.herokuapp.com/api/cakecart";
+    let detailsapiurl = base_url+"/api/cakecart";
     axios({
       url: detailsapiurl,
       method: "post",
@@ -39,7 +41,7 @@ function Cart(props) {
   }, [props.token]);
 
   function removeCartData(cake_id, index) {
-    let remove_cartapiurl = "https://apibyashu.herokuapp.com/api/removecakefromcart";
+    let remove_cartapiurl = base_url+"/api/removecakefromcart";
     
     axios({
       url: remove_cartapiurl,
@@ -137,7 +139,7 @@ function Cart(props) {
               </div>
               <Link to="/checkout">
               <button
-                style={{ display: "flex", float: "right", margin: "100px" }}
+                style={{ display: "flex", float: "right", margin: "40px" }}
                 className="btn btn-success"
               >
                 Checkout

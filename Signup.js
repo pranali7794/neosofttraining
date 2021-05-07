@@ -75,10 +75,11 @@ class Signup extends Component{
 				nameError:""
 			})
 		}
+		var base_url = process.env.REACT_APP_BASE_URL;
 
 		if(this.state.nameError=="" && this.state.pwdError=="" && this.state.emailError=="")
 		{
-			let apiurl = "https://apibyashu.herokuapp.com/api/register"
+			let apiurl = base_url+"/api/register"
 			axios({
 				url : apiurl,
 				method : "post",

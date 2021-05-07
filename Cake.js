@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom"
+import {useContext} from "react"
+import {DiscountContext} from "./Home"
+
 var img="choc_truffle1.jpeg";
 
 function Cake(props) {
+	const context = useContext(DiscountContext)
+	console.log("........", context)
 	//console.log("props received ", props)
 	return (
 		<div>

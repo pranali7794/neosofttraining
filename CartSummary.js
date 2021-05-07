@@ -9,9 +9,10 @@ function CartSummary(props){
   const [cartSumry, setCartSumry] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   var email = localStorage.email
-
+  var base_url = process.env.REACT_APP_BASE_URL;
+  
   useEffect(() => {
-    let detailsapiurl = "https://apibyashu.herokuapp.com/api/cakecart";
+    let detailsapiurl = base_url+"/api/cakecart";
     axios({
       url: detailsapiurl,
       method: "post",
@@ -144,5 +145,4 @@ export default connect(function (state, props) {
     counter : state?.counter
 
   };
-})(CartSummary);
- 
+})(CartSummary); 

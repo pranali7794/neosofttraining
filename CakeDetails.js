@@ -12,9 +12,10 @@ function CakeDetails(props){
     let params = useParams()
     //let [addtocart, setAddToCart] = useState({})
 	var token = localStorage.token
-	
+	var base_url = process.env.REACT_APP_BASE_URL;
+
     useEffect(()=>{
-        let cakedetailsapi = "https://apibyashu.herokuapp.com/api/cake/"+params.cakeid
+        let cakedetailsapi = base_url+"/api/cake/"+params.cakeid
         axios({
             url:cakedetailsapi,
             method:"get"
@@ -32,7 +33,7 @@ function CakeDetails(props){
             alert("Please login first for adding cake to cart !!")
         }
         else{
-        let addtocartapi = "https://apibyashu.herokuapp.com/api/addcaketocart"
+        let addtocartapi = base_url+"/api/addcaketocart"
         
         axios({
             url:addtocartapi,
